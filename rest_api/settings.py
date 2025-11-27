@@ -78,6 +78,22 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "USER_ID_FIELD": "id",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SERIALIZERS": {
+        "user_create": "api.serializers.UserCreateSerializer",
+        "user": "api.serializers.UserSerializer",
+        "current_user": "api.serializers.UserSerializer",
+    },
+    "TOKEN_MODEL": None,  # Token 認証を使わない場合は None
+    "PASSWORD_RESET_CONFIRM_URL": "auth/reset-password-confirm/?uid={uid}&token={token}",
+    "ACTIVATION_URL": "auth/activate/?uid={uid}&token={token}",
+    "SEND_ACTIVATION_EMAIL": True,
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
