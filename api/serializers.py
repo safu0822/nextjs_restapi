@@ -1,17 +1,19 @@
 from rest_framework import serializers
+from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
+from djoser.serializers import UserSerializer as DjoserUserSerializer
 from .models import Post, Task
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'password')
-        extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
-    
+class UserCreateSerializer(DjoserUserCreateSerializer):
+    class Meta(DjoserUserCreateSerializer.Meta):
+        model = User
+        fields = ("id", "email", "password", "first_name", "last_name")
+
+class UserSerializer(DjoserUserSerializer):
+    class Meta(DjoserUserSerializer.Meta):
+        model = User
+        fields = ("id", "email", "first_name", "last_name")
 
 class PostSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
