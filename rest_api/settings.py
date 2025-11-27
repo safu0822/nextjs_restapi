@@ -106,8 +106,6 @@ WSGI_APPLICATION = 'rest_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-default_dburl = 'sqlite:///' + str(BASE_DIR / "db.sqlite3")
-
 if DEBUG:
     DATABASES = {
     'default': {
